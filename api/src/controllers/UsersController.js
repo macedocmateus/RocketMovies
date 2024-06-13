@@ -49,8 +49,8 @@ class UsersController {
             throw new AppError('Este email já está em uso.');
         }
 
-        user.name = name;
-        user.email = email;
+        user.name = name ?? user.name;
+        user.email = email ?? user.email;
 
         if (password && !old_password) {
             throw new AppError(
@@ -74,9 +74,9 @@ class UsersController {
             name = ?,
             email = ?,
             password = ?,
-            updated_at = ?
+            updated_at = datetime('now')
             WHERE id = ?`,
-            [user.name, user.email, user.password, new Date(), id]
+            [user.name, user.email, user.password, id]
         );
 
         return response.json();
