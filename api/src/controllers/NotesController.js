@@ -5,7 +5,7 @@ class NotesController {
         const { title, description, rating, tags } = request.body;
         const { user_id } = request.params;
 
-        const { note_id } = await knex('movie_notes').insert({
+        const [note_id] = await knex('movie_notes').insert({
             title,
             description,
             rating,
@@ -22,7 +22,7 @@ class NotesController {
 
         await knex('movie_tags').insert(tagsInsert);
 
-        response.json();
+        return response.json();
     }
 }
 
